@@ -35,11 +35,9 @@ if(ENABLE_SXF)
     include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
     set(LIB_HHEADERS
-    )
-
-    set(LIB_HHEADERS_PRIV
-          ogr_sxf.h    
-          org_sxf_defs.h
+       ogr_sxf.h
+       org_sxf_defs.h
+            ogr_rsc.h
     )
 
     set(LIB_CSOURCES
@@ -51,10 +49,11 @@ if(ENABLE_SXF)
 		util.cpp
     )
 
-    add_library(${TARGET_NAME} OBJECT ${LIB_HHEADERS} ${LIB_HHEADERS_PRIV} ${LIB_CSOURCES})
+    add_library(${TARGET_NAME} OBJECT ${LIB_HHEADERS} ${LIB_CSOURCES})
 
     # build target
     set(TARGET_OBJECTS ${TARGET_OBJECTS} $<TARGET_OBJECTS:${TARGET_NAME}> PARENT_SCOPE)
+    install(FILES ${LIB_HHEADERS} DESTINATION ${INSTALL_INC_DIR} COMPONENT headers)
 else()
     warning_msg("Skip sxf")  
 endif()
